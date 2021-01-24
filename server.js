@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth_route");
+const postRoute = require("./routes/post_route");
 const mongodbConnection = require("./utils/db");
 const handelError = require("./middleware/handelError");
 
@@ -17,7 +18,9 @@ if (process.env.NODE_ENV === "development") {
 mongodbConnection();
 //routes
 app.use("/api/v1/users", authRoute);
-app.use(handelError)
+app.use("/api/v1/posts", postRoute);
+
+app.use(handelError);
 
 const port = process.env.PORT || 500;
 app.listen(port, () =>

@@ -1,10 +1,12 @@
 const { Schema, model } = require("mongoose");
+const { commentSchema } = require("./Comment");
+const joi = require("joi");
 
 const postSchema = new Schema(
   {
     content: { type: String, required: true, maxlength: 1000 },
     user: { required: true, type: Schema.Types.ObjectId, ref: "User" },
-    comments: { type: [Schema.Types.ObjectId], ref: "Comment" },
+    comments: [commentSchema],
   },
   { timestamps: true }
 );
