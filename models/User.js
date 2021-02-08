@@ -18,6 +18,11 @@ const UserSchema = new Schema({
     required: [true, "Please enter password"],
     maxlength: 1009,
   },
+  fullName: {
+    type: String,
+    minlength: 3,
+    maxlength: 300,
+  },
 });
 
 UserSchema.pre("save", async function (next) {
@@ -47,6 +52,7 @@ function validateUser(body) {
   const schema = joi.object({
     email: joi.string().required().min(5).max(255).email(),
     password: joi.string().required().min(6).max(200),
+    fullName: joi.string().min(3),
   });
   return schema.validate(body);
 }

@@ -6,7 +6,7 @@ const joi = require("joi");
 
 module.exports.login = asyncMiddleware(async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(errorResponse(error));
+  if (error) return res.status(401).send(errorResponse(error));
   const { email, password } = req.body;
   const user = await User.login(email, password);
   const token = await user.generateJWT(user);
@@ -15,7 +15,7 @@ module.exports.login = asyncMiddleware(async (req, res) => {
 
 module.exports.register = asyncMiddleware(async (req, res) => {
   const { error } = validateUser(req.body);
-  if (error) return res.status(400).send(errorResponse(error));
+  if (error) return res.status(401).send(errorResponse(error));
   const { email, password } = req.body;
   const user = await User.create({ email, password });
   const token = await user.generateJWT(user);

@@ -19,5 +19,4 @@ function validatePost(body) {
   return schema.validate(body);
 }
 const Post = model("Post", postSchema);
-
 module.exports = { Post, validatePost };
